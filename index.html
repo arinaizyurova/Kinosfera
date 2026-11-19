@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Киносфера — бронирование мест</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a href="#" class="brand" aria-label="Киносфера, главная"><span class="brand-mark" aria-hidden="true">К</span>КИНОСФЕРА<span class="brand-caption">кинотеатр</span></a>
+        <nav aria-label="Навигация"><a href="#sessions">Сеансы</a><a href="#hall-section">Выбрать места</a></nav>
+        <span class="header-city">Санкт-Петербург</span>
+    </header>
+    <main>
+        <section class="movie-hero">
+            <div class="hero-art" aria-hidden="true"><div class="orbit"></div><div class="planet"></div><div class="small-planet"></div><span class="art-caption">BEYOND THE STARS</span></div>
+            <div class="hero-content">
+                <div class="eyebrow">СЕГОДНЯ В КИНО <span>12+</span></div>
+                <h1>За пределами<br><em>звёзд</em></h1>
+                <p class="movie-meta">Фантастика · Приключения · 2 ч 10 мин</p>
+                <p class="movie-description">Один сигнал из далёкой галактики. Одна команда.<br>Путешествие, которое изменит всё.</p>
+                <div class="movie-tags"><span>2D</span><span>Объёмный звук</span><span>Большой экран</span></div>
+            </div>
+        </section>
+
+        <section class="sessions-section" id="sessions">
+            <div class="section-heading"><div><span class="eyebrow">ВАШ ВЕЧЕР В КИНО</span><h2>Выберите сеанс</h2></div><span class="quiet">Зал 1 · 150 мест</span></div>
+            <div id="sessionList" class="session-list" aria-label="Доступные сеансы"></div>
+        </section>
+
+        <div class="booking-layout">
+            <section class="hall-panel" id="hall-section">
+                <div class="section-heading"><h2>Выберите места</h2><span id="hallSession" class="quiet"></span></div>
+                <p class="hall-tip">Нажмите на свободное место. Повторный клик отменит выбор.</p>
+                <div class="hall-scroll" tabindex="0" aria-label="Схема зала, при необходимости прокрутите по горизонтали">
+                    <div class="hall-inner">
+                        <div class="screen"><span>ЭКРАН</span></div>
+                        <div id="seatMap" class="seat-map" role="group" aria-label="Места в кинозале"></div>
+                        <div class="row-caption">Номера рядов указаны слева</div>
+                    </div>
+                </div>
+                <div class="legend" aria-label="Обозначения мест"><span><i class="free-key"></i>Свободно</span><span><i class="selected-key"></i>Выбрано</span><span><i class="occupied-key"></i>Занято</span></div>
+                <p id="hallNotice" class="notice" role="status"></p>
+            </section>
+
+            <aside class="receipt-panel">
+                <span class="eyebrow">ВАШЕ БРОНИРОВАНИЕ</span>
+                <h2>Билет в хороший вечер</h2>
+                <div class="receipt-film"><strong>За пределами звёзд</strong><span id="receiptSession"></span></div>
+                <div class="receipt-label">Выбранные места <span id="seatCount">0</span></div>
+                <ul id="selectedList" class="selected-list"></ul>
+                <p id="emptySelection" class="empty-selection">Пока ничего не выбрано.<br>Найдите своё место на схеме.</p>
+                <button id="clearSelection" type="button" class="text-button" hidden>Снять выбор</button>
+                <div class="price-detail"><span id="priceCalculation">Цена за место</span><span id="unitPrice"></span></div>
+                <div class="total"><span>Итого</span><strong id="totalPrice">0 ₽</strong></div>
+                <form id="bookingForm" novalidate>
+                    <label for="viewerName">Имя зрителя</label>
+                    <input id="viewerName" name="viewerName" type="text" autocomplete="given-name" placeholder="Например, Арина" aria-describedby="nameHelp nameError">
+                    <small id="nameHelp">От 2 до 30 букв, кириллица или латиница.</small>
+                    <p id="nameError" class="field-error" aria-live="polite"></p>
+                    <label for="viewerPhone">Телефон</label>
+                    <input id="viewerPhone" name="viewerPhone" type="tel" autocomplete="tel" placeholder="+7 (999) 123-45-67" aria-describedby="phoneHelp phoneError">
+                    <small id="phoneHelp">Номер с +7 или 8 и десятью цифрами после кода.</small>
+                    <p id="phoneError" class="field-error" aria-live="polite"></p>
+                    <button id="bookButton" type="submit" class="primary-button" disabled>Забронировать</button>
+                    <p class="booking-note">Без оплаты. После подтверждения места станут занятыми.</p>
+                    <p id="formMessage" class="notice" role="status"></p>
+                </form>
+            </aside>
+        </div>
+    </main>
+    <footer><a href="#" class="footer-brand">КИНОСФЕРА</a></footer>
+
+    <dialog id="confirmation" aria-labelledby="confirmationTitle">
+        <button id="closeDialog" class="close-dialog" type="button" aria-label="Закрыть подтверждение">×</button>
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <span class="eyebrow">ДО ВСТРЕЧИ В КИНО</span><h2 id="confirmationTitle">Места забронированы</h2>
+        <p id="confirmationGreeting"></p>
+        <div class="ticket"><strong>За пределами звёзд</strong><p id="ticketSession"></p><p id="ticketSeats"></p><div class="ticket-total"><span>Сумма</span><b id="ticketTotal"></b></div><small id="ticketCode"></small></div>
+        <p class="dialog-note">Это учебное бронирование, оно не является билетом настоящего кинотеатра.</p>
+        <button id="doneButton" class="primary-button" type="button">Готово</button>
+    </dialog>
+    <script src="script.js"></script>
+</body>
+</html>
